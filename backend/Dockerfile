@@ -4,7 +4,7 @@ WORKDIR /app
 
 COPY src/ .
 
-ARG ip
+ARG PUBLIC_IP
 
 RUN pip install -r requirements.txt
 
