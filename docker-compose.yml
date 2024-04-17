@@ -3,7 +3,7 @@ services:
   frontend:
     build: ./frontend  # Path to your frontend Dockerfile or Docker build context
     environment:
-      - PUBLIC_IP=$(cat /tmp/public_ip.txt)
+      - PUBLIC_IP=${PUBLIC_IP}
     ports:
       - "8081:3000"  # Map container port to host port
     depends_on:
@@ -11,6 +11,6 @@ services:
   backend:
     build: ./backend  # Path to your backend Dockerfile or Docker build context
     environment:
-      - PUBLIC_IP=$(cat /tmp/public_ip.txt)
+      - PUBLIC_IP=${PUBLIC_IP}
     ports:
       - "8080:8080"  # Map container port to host port
