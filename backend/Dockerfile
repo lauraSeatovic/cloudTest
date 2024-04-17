@@ -5,7 +5,7 @@ WORKDIR /app
 COPY src/ .
 
 ARG PUBLIC_IP
-
+ENV PUBLIC_IP=$PUBLIC_IP
 RUN pip install -r requirements.txt
 
 
