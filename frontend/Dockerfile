@@ -6,10 +6,8 @@ WORKDIR /home/stud
 
 COPY src/ .
 
-ARG ip
 
 ARG PUBLIC_IP
-ENV PUBLIC_IP=$PUBLIC_IP
 
 RUN sed -i "s#const baseUrl = 'http://localhost:8080';#const baseUrl = 'http://${PUBLIC_IP}:8080';#g" tic_tac_toe.js
 ENTRYPOINT ["busybox"]
