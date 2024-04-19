@@ -23,7 +23,7 @@ terraform apply
 ### 3. Cleaing up
 After you have finished testing or using the infrastructure, use Terraform to shut down the resources.
 
-'''sh
+```sh
 terraform destroy
 ```
 
