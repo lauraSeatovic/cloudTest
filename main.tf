@@ -2,8 +2,8 @@ provider "aws" {
   region = "us-east-1"
 }
 
-resource "aws_security_group" "example" {
-  name_prefix = "example"
+resource "aws_security_group" "allow_ssh_http" {
+  name_prefix = "allow_ssh_http"
 
   ingress {
     from_port   = 80
@@ -48,40 +48,42 @@ ingress {
   }
 }
 
-resource "aws_instance" "example" {
+resource "aws_instance" "tic_tac_toe" {
   ami           = "ami-006dcf34c09e50022" // Amazon Linux 2 AMI
   instance_type = "t2.micro"
   key_name      = "vockey"
   vpc_security_group_ids = [
-    aws_security_group.example.id,
+    aws_security_group.allow_ssh_http.id,
   ]
+  user_data = <<-EOF
+              #!/bin/bash
 
-connection {
-    type        = "ssh"
-    user        = "ec2-user"
-    private_key = file("labsuser.pem")
-    host        = self.public_ip
-  }
-  provisioner "remote-exec" {
-    inline = [
-      "sudo yum install -y docker git python3",
-      "sudo systemctl enable docker",
-      "sudo systemctl start docker",
-      "sudo chown $USER /var/run/docker.sock",
-      "sudo curl -L https://github.com/docker/compose/releases/download/1.29.2/docker-compose-$(uname -s)-$(uname -m) -o /usr/local/bin/docker-compose",
-      "sudo chmod +x /usr/local/bin/docker-compose",
-      "sudo ln -s /usr/local/bin/docker-compose /usr/bin/docker-compose",
-      "sudo docker run -p 80:80 -d nginx",
-      "git clone https://github.com/lauraSeatovic/cloudTest.git",
-      "cd cloudTest",
-      "PUBLIC_IP=$(curl -s http://169.254.169.254/latest/meta-data/public-ipv4)",
-       "echo $PUBLIC_IP > ip.txt",
-      "echo \"PUBLIC_IP=$PUBLIC_IP\" > .env",
-      "sudo docker-compose up -d",
-    ]
-  }
+              sudo yum install -y docker git python3
+              sudo systemctl enable docker
+              sudo systemctl start docker
+              sudo chown $USER /var/run/docker.sock
+              sudo curl -L https://github.com/docker/compose/releases/download/1.29.2/docker-compose-$(uname -s)-$(uname -m) -o /usr/local/bin/docker-compose
+              sudo chmod +x /usr/local/bin/docker-compose
+              sudo ln -s /usr/local/bin/docker-compose /usr/bin/docker-compose
+              sudo docker run -p 80:80 -d nginx
+              git clone https://github.com/lauraSeatovic/cloudTest.git
+              cd cloudTest
+              PUBLIC_IP=$(curl -s http://169.254.169.254/latest/meta-data/public-ipv4)
+              echo $PUBLIC_IP > ip.txt
+              echo "PUBLIC_IP=$PUBLIC_IP" > .env
+              sudo docker-compose up -d
+
+              EOF
+
+
+
+  tags = {
+    Name = "Tic-Tac-Toe"
+    }
+
+
 }
 
 output "public_ip" {
-  value = aws_instance.example.public_ip
+  value = aws_instance.tic_tac_toe.public_ip
 }
