@@ -13,7 +13,7 @@ git clone
 cd CloudTest
 terraform init
 terraform apply
-
+```
 ### 2. Interacting with the app
 - Once the infrastructure is deployed, you can access the app on the following address http://<public_ip>:8081
 - To create a new room, click New Room
@@ -22,9 +22,10 @@ terraform apply
 
 ### 3. Cleaing up
 After you have finished testing or using the infrastructure, use Terraform to shut down the resources.
+
 '''sh
 terraform destroy
-
+```
 
 ## Environment architecture
 
