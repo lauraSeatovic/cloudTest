@@ -65,7 +65,6 @@ resource "aws_instance" "tic_tac_toe" {
               sudo curl -L https://github.com/docker/compose/releases/download/1.29.2/docker-compose-$(uname -s)-$(uname -m) -o /usr/local/bin/docker-compose
               sudo chmod +x /usr/local/bin/docker-compose
               sudo ln -s /usr/local/bin/docker-compose /usr/bin/docker-compose
-              sudo docker run -p 80:80 -d nginx
               git clone https://github.com/lauraSeatovic/cloudTest.git
               cd cloudTest
               PUBLIC_IP=$(curl -s http://169.254.169.254/latest/meta-data/public-ipv4)
