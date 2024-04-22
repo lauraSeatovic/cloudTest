@@ -9,7 +9,7 @@
 ### 1. Deploying Infrastructure
 Use Terraform to deploy resources on AWS. Clone the repository and navigate to the directory containing Terraform configuration files.
 ```sh
-git clone
+git clone https://github.com/lauraSeatovic/cloudTest.git
 cd CloudTest
 terraform init
 terraform apply
@@ -40,7 +40,5 @@ Screenshots of configured AWS services. Screenshots of your application running.
 
 ## Reflections
 
-- What did you learn?
-- What obstacles did you overcome?
-- What did you help most in overcoming obstacles?
-- Was that something that surprised you?
+I learned how to configure infrastructure on AWS using Terraform and deploy Docker containers. Initially, I encountered difficulties with fetching code from a private GitHub repository. Eventually, I switched to using a public repository instead. Also, I encountered challenges with passing environment variables to Docker containers. In the end, with the help of online resources and by studying examples from other projects, I successfully managed to overcome these challenges.
+
